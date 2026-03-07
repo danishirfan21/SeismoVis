@@ -1,0 +1,121 @@
+<ParaView>
+  <ServerManagerConfiguration version="5.10.1" minor="0">
+    <ProxyGroup name="sources">
+      <Proxy type="XMLPolyDataReader" id="1" registration_name="earthquakes.vtp">
+        <Property name="FileName" id="1.FileName" number_of_elements="1">
+          <Element index="0" value="../data/earthquakes.vtp"/>
+        </Property>
+      </Proxy>
+      <Proxy type="SphereSource" id="2" registration_name="EarthSurface">
+        <Property name="Radius" id="2.Radius" number_of_elements="1">
+          <Element index="0" value="6360"/>
+        </Property>
+        <Property name="ThetaResolution" id="2.ThetaResolution" number_of_elements="1">
+          <Element index="0" value="64"/>
+        </Property>
+        <Property name="PhiResolution" id="2.PhiResolution" number_of_elements="1">
+          <Element index="0" value="64"/>
+        </Property>
+      </Proxy>
+    </ProxyGroup>
+
+    <ProxyGroup name="filters">
+      <Proxy type="Glyph" id="3" registration_name="EarthquakeGlyphs">
+        <Property name="Input" id="3.Input" number_of_elements="1">
+          <Proxy value="1" output_port="0"/>
+        </Property>
+        <Property name="GlyphType" id="3.GlyphType" number_of_elements="1">
+          <Proxy value="4"/> <!-- Sphere -->
+        </Property>
+        <Property name="ScaleArray" id="3.ScaleArray" number_of_elements="5">
+          <Element index="0" value="0"/>
+          <Element index="1" value=""/>
+          <Element index="2" value=""/>
+          <Element index="3" value="0"/>
+          <Element index="4" value="Magnitude"/>
+        </Property>
+        <Property name="ScaleFactor" id="3.ScaleFactor" number_of_elements="1">
+          <Element index="0" value="100"/>
+        </Property>
+      </Proxy>
+
+      <Proxy type="GaussianResampling" id="4" registration_name="SeismicDensity">
+        <Property name="Input" id="4.Input" number_of_elements="1">
+          <Proxy value="1" output_port="0"/>
+        </Property>
+        <Property name="ResamplingGrid" id="4.ResamplingGrid" number_of_elements="3">
+          <Element index="0" value="128"/>
+          <Element index="1" value="128"/>
+          <Element index="2" value="128"/>
+        </Property>
+      </Proxy>
+
+      <Proxy type="Contour" id="5" registration_name="DensityContours">
+        <Property name="Input" id="5.Input" number_of_elements="1">
+          <Proxy value="4" output_port="0"/>
+        </Property>
+        <Property name="ContourValues" id="5.ContourValues" number_of_elements="1">
+          <Element index="0" value="0.5"/>
+        </Property>
+      </Proxy>
+    </ProxyGroup>
+
+    <ProxyGroup name="views">
+      <Proxy type="RenderView" id="6" registration_name="MainView">
+        <Property name="ViewSize" id="6.ViewSize" number_of_elements="2">
+          <Element index="0" value="1920"/>
+          <Element index="1" value="1080"/>
+        </Property>
+        <Property name="Background" id="6.Background" number_of_elements="3">
+          <Element index="0" value="0.05"/>
+          <Element index="1" value="0.05"/>
+          <Element index="2" value="0.1"/>
+        </Property>
+        <Property name="CameraPosition" id="6.CameraPosition" number_of_elements="3">
+          <Element index="0" value="20000"/>
+          <Element index="1" value="10000"/>
+          <Element index="2" value="10000"/>
+        </Property>
+      </Proxy>
+    </ProxyGroup>
+
+    <ProxyGroup name="representations">
+      <Proxy type="GeometryRepresentation" id="7" registration_name="GlyphRep">
+        <Property name="Input" id="7.Input" number_of_elements="1">
+          <Proxy value="3" output_port="0"/>
+        </Property>
+        <Property name="Representation" id="7.Representation" number_of_elements="1">
+          <Element index="0" value="Surface"/>
+        </Property>
+        <Property name="ColorArrayName" id="7.ColorArrayName" number_of_elements="5">
+          <Element index="0" value="0"/>
+          <Element index="1" value=""/>
+          <Element index="2" value=""/>
+          <Element index="3" value="0"/>
+          <Element index="4" value="Magnitude"/>
+        </Property>
+      </Proxy>
+      <Proxy type="GeometryRepresentation" id="8" registration_name="ContourRep">
+        <Property name="Input" id="8.Input" number_of_elements="1">
+          <Proxy value="5" output_port="0"/>
+        </Property>
+        <Property name="Opacity" id="8.Opacity" number_of_elements="1">
+          <Element index="0" value="0.3"/>
+        </Property>
+      </Proxy>
+      <Proxy type="GeometryRepresentation" id="9" registration_name="EarthRep">
+        <Property name="Input" id="9.Input" number_of_elements="1">
+          <Proxy value="2" output_port="0"/>
+        </Property>
+        <Property name="Opacity" id="9.Opacity" number_of_elements="1">
+          <Element index="0" value="0.4"/>
+        </Property>
+        <Property name="DiffuseColor" id="9.DiffuseColor" number_of_elements="3">
+          <Element index="0" value="0.1"/>
+          <Element index="1" value="0.1"/>
+          <Element index="2" value="0.1"/>
+        </Property>
+      </Proxy>
+    </ProxyGroup>
+  </ServerManagerConfiguration>
+</ParaView>
