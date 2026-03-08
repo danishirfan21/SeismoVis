@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ParaView>
+  <!--
+    Portfolio state-file template.
+    Open data/earthquakes.vtp, construct the pipeline described in docs/workflow_explanation.md,
+    then overwrite this file from ParaView using: File -> Save State.
+  -->
+  <ServerManagerState version="5.12.0">
+    <ProxyCollection name="sources" />
+    <ProxyCollection name="filters" />
+    <ProxyCollection name="views" />
+    <ProxyCollection name="representations" />
+  </ServerManagerState>
+</ParaView>
