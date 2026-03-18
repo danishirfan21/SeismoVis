@@ -1,0 +1,47 @@
+name: Update Earthquake Visualization
+
+on:
+  schedule:
+    # Run every 24 hours at midnight UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  update-viz:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r paraview-earthquake-visualization/requirements.txt
+
+    - name: Fetch fresh data
+      run: python paraview-earthquake-visualization/scripts/fetch_data.py
+
+    - name: Process data (CSV to VTP)
+      run: python paraview-earthquake-visualization/scripts/convert_to_vtk.py
+
+    - name: Generate renders (Headless VTK)
+      run: python paraview-earthquake-visualization/scripts/generate_renders.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add paraview-earthquake-visualization/data/earthquakes.vtp
+        git add paraview-earthquake-visualization/renders/earthquake_visualization.png
+        git add paraview-earthquake-visualization/renders/frames/*.png
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Automated update: Latest USGS Earthquake Visualization" && git push)
