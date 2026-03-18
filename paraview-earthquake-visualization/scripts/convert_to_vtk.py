@@ -15,6 +15,9 @@ def csv_to_vtp(csv_path, vtp_path):
     # Filter out rows with missing coordinates or magnitude
     df = df.dropna(subset=['latitude', 'longitude', 'depth', 'mag'])
 
+    # Filter out negative magnitudes (very small tremors that can cause visual artifacts)
+    df = df[df['mag'] >= 0]
+
     # Earth radius in km
     R = 6371.0
 
@@ -28,7 +31,7 @@ def csv_to_vtp(csv_path, vtp_path):
     # x = r * cos(lat) * cos(lon)
     # y = r * cos(lat) * sin(lon)
     # z = r * sin(lat)
-    r = R - df['depth']
+    r = np.clip(R - df['depth'], 0.1, R)
 
     x = r * np.cos(lat_rad) * np.cos(lon_rad)
     y = r * np.cos(lat_rad) * np.sin(lon_rad)

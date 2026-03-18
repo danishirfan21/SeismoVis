@@ -8,7 +8,7 @@
       </Proxy>
       <Proxy type="SphereSource" id="2" registration_name="EarthSurface">
         <Property name="Radius" id="2.Radius" number_of_elements="1">
-          <Element index="0" value="6360"/>
+          <Element index="0" value="6371"/>
         </Property>
         <Property name="ThetaResolution" id="2.ThetaResolution" number_of_elements="1">
           <Element index="0" value="64"/>

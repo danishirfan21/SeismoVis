@@ -2,7 +2,7 @@
 
 This project demonstrates a complete scientific visualization workflow using **ParaView**, **VTK**, and **Python**. It transforms raw earthquake data from the USGS into a professional 3D visualization, highlighting seismic patterns across the globe.
 
-![Earthquake Visualization](renders/earthquake_visualization.png)
+![Earthquake Visualization](paraview-earthquake-visualization/renders/earthquake_visualization.png)
 
 ## 🚀 Project Overview
 
@@ -41,7 +41,7 @@ paraview-earthquake-visualization
 
 ### 1. Install Dependencies
 ```bash
-pip install pandas vtk
+pip install -r paraview-earthquake-visualization/requirements.txt
 ```
 
 ### 2. Preprocess Data
@@ -55,6 +55,9 @@ You can either manually build the pipeline following the [Workflow Documentation
 - Open ParaView.
 - Go to `File > Load State`.
 - Select `paraview/earthquake_pipeline.pvsm`.
+
+> **Note**: The state file uses a relative path (`../data/earthquakes.vtp`) to locate the data.  
+> Make sure ParaView's working directory is the `paraview/` folder, or update the path when prompted.
 
 ### 4. Generate Renders (Headless)
 To generate the visualization assets without opening the GUI, run:
