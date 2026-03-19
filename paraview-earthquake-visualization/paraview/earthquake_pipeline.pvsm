@@ -1,5 +1,5 @@
 <ParaView>
-  <ServerManagerConfiguration version="5.10.1" minor="0">
+  <ServerManagerState version="5.12.1">
     <ProxyGroup name="sources">
       <Proxy type="XMLPolyDataReader" id="1" registration_name="earthquakes.vtp">
         <Property name="FileName" id="1.FileName" number_of_elements="1">
@@ -117,5 +117,5 @@
         </Property>
       </Proxy>
     </ProxyGroup>
-  </ServerManagerConfiguration>
+  </ServerManagerState>
 </ParaView>
